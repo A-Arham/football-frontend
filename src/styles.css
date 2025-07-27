@@ -713,4 +713,71 @@ header.hero, footer {
   background-color: #a71d2a;
 }
 
+/* Container for the edit form */
+.edit-team-form {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 2px solid #17a2b8; /* Bootstrap-like info blue */
+  border-radius: 6px;
+  background-color: #e0f7fa; /* light blue background */
+  max-width: 400px;
+}
+
+/* Style the select dropdown */
+.edit-team-form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #17a2b8;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Style input fields */
+.edit-team-form input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #17a2b8;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Style the Update button */
+.edit-team-form button {
+  background-color: #192870;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.edit-team-form button:hover {
+  background-color: #192870;
+}
+
+/* Style the Edit Team header button to match Add/Delete */
+#editTeamBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #192870;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(23, 162, 184, 0.07);
+  margin-left: 8px;
+  min-width: 100px;
+}
+
+#editTeamBtn:hover {
+  background: #117a8b;
+  box-shadow: 0 2px 8px rgba(23, 162, 184, 0.13);
+}
+
+
 }

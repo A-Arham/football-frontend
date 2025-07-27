@@ -7,7 +7,7 @@
     <button id="deleteTeamBtn" (click)="toggleDeleteForm()">
       {{ showDeleteForm ? 'Cancel' : 'Delete Team' }}
     </button>
-    <button id="editTeamBtn" (click)="toggleEditForm()">
+    <button id="editTeamBtn" (click)="toggleEditForm()" class="edit-btn">
       {{ showEditForm ? 'Cancel' : 'Edit Team' }}
     </button>
   </div>
@@ -39,10 +39,9 @@
       {{ team.name }} ({{ team.city }})
     </option>
   </select>
-
-  <input type="text" placeholder="New Name" [(ngModel)]="editTeamName" />
-  <input type="text" placeholder="New City" [(ngModel)]="editTeamCity" />
-  <button (click)="updateTeam()">Update</button>
+  <input type="text" placeholder="New Team Name" [(ngModel)]="editTeamName" />
+  <input type="text" placeholder="New Team City" [(ngModel)]="editTeamCity" />
+  <button class="edit-btn" (click)="updateTeam()">Update</button>
 </div>
 
 <!-- Teams Table -->
