@@ -9,14 +9,17 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './teams.html',
-  encapsulation: ViewEncapsulation.None  // enable global styles
+  encapsulation: ViewEncapsulation.None // to allow global styles from style.css
 })
 export class TeamsComponent implements OnInit {
   teams: Team[] = [];
 
-  newTeamName: string = '';
-  newTeamCity: string = '';
-  showAddForm: boolean = false;
+  showAddForm = false;
+  newTeamName = '';
+  newTeamCity = '';
+
+  showDeleteForm = false;
+  selectedDeleteTeamId: number | null = null;  // Store selected team's id
 
   constructor(private teamsService: TeamsService) {}
 
@@ -26,17 +29,18 @@ export class TeamsComponent implements OnInit {
 
   loadTeams(): void {
     this.teamsService.getTeams().subscribe({
-      next: (data: Team[]) => {
-        this.teams = data;
-      },
-      error: (err: any) => {
-        console.error('Failed to fetch teams', err);
-      }
+      next: (data) => this.teams = data,
+      error: (err) => console.error('Failed to fetch teams', err)
     });
   }
 
   toggleAddForm(): void {
     this.showAddForm = !this.showAddForm;
+    if (this.showAddForm) {
+      this.showDeleteForm = false;
+      this.newTeamName = '';
+      this.newTeamCity = '';
+    }
   }
 
   addTeam(): void {
@@ -44,26 +48,46 @@ export class TeamsComponent implements OnInit {
       alert('Please enter both name and city.');
       return;
     }
+
     const newTeam: Team = {
       name: this.newTeamName.trim(),
-      city: this.newTeamCity.trim()
-      // Add other properties if needed
+      city: this.newTeamCity.trim(),
     };
 
     this.teamsService.addTeam(newTeam).subscribe({
       next: () => {
         this.loadTeams();
-        this.newTeamName = '';
-        this.newTeamCity = '';
-        this.showAddForm = false;
+        this.toggleAddForm();
       },
-      error: (err: any) => {
-        console.error('Failed to add team', err);
-      }
+      error: (err) => console.error('Failed to add team', err)
     });
   }
 
-  deleteTeam(): void {
-    console.log('Delete Team clicked');
+  toggleDeleteForm(): void {
+    this.showDeleteForm = !this.showDeleteForm;
+    if (this.showDeleteForm) {
+      this.showAddForm = false;
+      this.selectedDeleteTeamId = null;
+    }
+  }
+
+  deleteTeamById(): void {
+    if (this.selectedDeleteTeamId === null) {
+      alert('Please select a team to delete.');
+      return;
+    }
+
+    this.teamsService.deleteTeamById(this.selectedDeleteTeamId).subscribe({
+      next: () => {
+        // Remove deleted team from the teams array
+        this.teams = this.teams.filter(team => team.teamId !== this.selectedDeleteTeamId);
+        this.selectedDeleteTeamId = null;
+        this.showDeleteForm = false;
+      },
+      error: (err) => {
+        console.error('Failed to delete team', err);
+        alert('Failed to delete team.');
+      }
+    });
   }
 }

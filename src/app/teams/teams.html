@@ -4,7 +4,9 @@
     <button id="addTeamBtn" (click)="toggleAddForm()">
       {{ showAddForm ? 'Cancel' : 'Add Team' }}
     </button>
-    <button id="deleteTeamBtn" (click)="deleteTeam()">Delete Team</button>
+    <button id="deleteTeamBtn" (click)="toggleDeleteForm()">
+      {{ showDeleteForm ? 'Cancel' : 'Delete Team' }}
+    </button>
   </div>
 </div>
 
@@ -13,13 +15,23 @@
   <input type="text" placeholder="Team Name" [(ngModel)]="newTeamName" />
   <input type="text" placeholder="Team City" [(ngModel)]="newTeamCity" />
   <button (click)="addTeam()">Save</button>
-  <button class="cancel-btn" (click)="toggleAddForm()">Cancel</button>
 </div>
 
+<!-- Delete Team Form -->
+<div class="delete-team-form" *ngIf="showDeleteForm">
+  <select [(ngModel)]="selectedDeleteTeamId">
+    <!-- Default option is disabled and selected initially -->
+    <option [ngValue]="null" disabled selected>Select team to delete</option>
+    <!-- List all teams by name and city, bind option value to team.id -->
+    <option *ngFor="let team of teams" [ngValue]="team.teamId">
+      {{ team.name }} ({{ team.city }})
+    </option>
+  </select>
+  <button (click)="deleteTeamById()">Delete</button>
+</div>
 
 <!-- Teams Table -->
 <table id="teamsTable">
-  <!-- table headers -->
   <thead>
     <tr>
       <th>Name</th>
