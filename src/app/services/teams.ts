@@ -28,5 +28,9 @@ export class TeamsService {
   deleteTeamById(teamid: number): Observable<void> {
   return this.http.delete<void>(`${this.apiUrl}/${teamid}`);
 }
+updateTeam(team: Team): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/${team.teamId}`, team);
+}
+
 
 }
