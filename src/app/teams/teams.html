@@ -1,28 +1,33 @@
-<p>teams works!</p>
-<aside class="teams">
-  <div class="teams-table-header">
-    <h2>🏆 Teams</h2>
-    <div class="teams-buttons">
-      <button type="button" id="addTeamBtn" (click)="addTeam()">Add Team</button>
-      <button type="button" id="deleteTeamBtn" (click)="deleteTeam()">Delete Team</button>
-
-    </div>
+<div class="teams-header">
+  <h2>🏆 Teams</h2>
+  <div class="teams-buttons">
+    <button id="addTeamBtn" (click)="toggleAddForm()">
+      {{ showAddForm ? 'Cancel' : 'Add Team' }}
+    </button>
+    <button id="deleteTeamBtn" (click)="deleteTeam()">Delete Team</button>
   </div>
+</div>
 
-  <div class="teams-table-wrapper">
-    <table id="teamsTable">
-      <thead>
-        <tr>
-          <th>Team Name</th>
-          <th>City</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let team of teams">
-          <td>{{ team.name }}</td>
-          <td>{{ team.city }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</aside>
+<!-- Add Team Form -->
+<div *ngIf="showAddForm" class="add-team-form">
+  <input type="text" placeholder="Team Name" [(ngModel)]="newTeamName" />
+  <input type="text" placeholder="City" [(ngModel)]="newTeamCity" />
+  <button (click)="addTeam()">Submit</button>
+</div>
+
+<!-- Teams Table -->
+<table id="teamsTable">
+  <!-- table headers -->
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of teams">
+      <td>{{ team.name }}</td>
+      <td>{{ team.city }}</td>
+    </tr>
+  </tbody>
+</table>
