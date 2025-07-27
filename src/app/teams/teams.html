@@ -9,11 +9,13 @@
 </div>
 
 <!-- Add Team Form -->
-<div *ngIf="showAddForm" class="add-team-form">
+<div class="add-team-form" *ngIf="showAddForm">
   <input type="text" placeholder="Team Name" [(ngModel)]="newTeamName" />
-  <input type="text" placeholder="City" [(ngModel)]="newTeamCity" />
-  <button (click)="addTeam()">Submit</button>
+  <input type="text" placeholder="Team City" [(ngModel)]="newTeamCity" />
+  <button (click)="addTeam()">Save</button>
+  <button class="cancel-btn" (click)="toggleAddForm()">Cancel</button>
 </div>
+
 
 <!-- Teams Table -->
 <table id="teamsTable">
