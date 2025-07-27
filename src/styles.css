@@ -1,1 +1,626 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Hero Banner */
+.hero {
+  background: url('https://as1.ftcdn.net/v2/jpg/02/71/50/50/1000_F_271505083_nAvK5RA4G4PaP4XGzPmzFPA8BRKk4yVh.jpg') center/cover no-repeat;
+  height: 240px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 16px;
+  word-break: break-word;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  word-break: break-word;
+}
+
+/* Layout */
+main.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 40px auto;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 3fr minmax(320px, 1.7fr);
+  grid-template-areas:
+    "matches teams";
+  gap: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Matches Section */
+.matches {
+  grid-area: matches;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-width: 0;
+  box-sizing: border-box;
+}
+.players {
+  margin-top: 40px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  background: white;
+  box-sizing: border-box;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+thead {
+  background-color: #f0f0f0;
+}
+
+/* Teams Sidebar */
+.teams {
+  grid-area: teams;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-width: 320px;
+  box-sizing: border-box;
+  /* Remove max-width to allow dynamic growth */
+  margin-top: 40px; /* Match .players spacing */
+}
+
+
+.teams-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.teams-table-header h2 {
+  margin-bottom: 0;
+  margin-right: auto;
+  flex-grow: 1;
+}
+
+/* Teams Table */
+#teamsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  background: white;
+  box-sizing: border-box;
+}
+
+#teamsTable th, #teamsTable td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+#teamsTable thead {
+  background-color: #f0f0f0;
+}
+
+/* Section Titles */
+section h2, aside h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #1e88e5;
+  border-left: 4px solid #1e88e5;
+  padding-left: 10px;
+  word-break: break-word;
+}
+
+/* Footer */
+footer {
+  background-color: #18266d;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  width: 100vw;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+}
+
+/* Players Table Header */
+.players-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.players-table-header h2 {
+  margin-bottom: 0;
+  margin-right: auto;
+  flex-grow: 1;
+}
+
+.players-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.players-search-bar input[type="text"] {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #f8fafc;
+  box-shadow: 0 1px 4px rgba(30,136,229,0.07);
+  min-width: 140px;
+}
+
+.players-search-bar input[type="text"]:focus {
+  border-color: #1e88e5;
+  box-shadow: 0 0 0 2px rgba(30,136,229,0.15);
+}
+
+.players-search-bar button#addPlayerBtn,
+.players-search-bar button#deletePlayerBtn {
+  min-width: 100px;
+}
+
+.players-search-bar button#addPlayerBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #1e88e5;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(30,136,229,0.07);
+}
+
+.players-search-bar button#addPlayerBtn:hover {
+  background: #1565c0;
+  box-shadow: 0 2px 8px rgba(30,136,229,0.13);
+}
+
+.players-search-bar button#deletePlayerBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #e53935;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(229,57,53,0.07);
+}
+
+.players-search-bar button#deletePlayerBtn:hover {
+  background: #b71c1c;
+  box-shadow: 0 2px 8px rgba(229,57,53,0.13);
+}
+
+/* Teams Header */
+.teams-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.teams-header h2 {
+  margin-bottom: 0;
+  margin-right: auto;
+  flex-shrink: 0;
+}
+
+#addTeamBtn, #deleteTeamBtn {
+  min-width: 100px;
+}
+
+#addTeamBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #43a047;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(67,160,71,0.07);
+  margin-left: 0;
+}
+
+#addTeamBtn:hover {
+  background: #2e7d32;
+  box-shadow: 0 2px 8px rgba(67,160,71,0.13);
+}
+
+#deleteTeamBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #e53935;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(229,57,53,0.07);
+  margin-left: 8px;
+}
+
+#deleteTeamBtn:hover {
+  background: #b71c1c;
+  box-shadow: 0 2px 8px rgba(229,57,53,0.13);
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "matches"
+      "teams";
+    gap: 20px;
+    width: 100%;
+  }
+  .teams {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    margin-top: 40px;
+  }
+  .matches, .players {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .matches table,
+  .players table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: white;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .matches table thead,
+  .players table thead,
+  .matches table tbody,
+  .players table tbody {
+    display: table;
+    width: 100%;
+  }
+  th, td {
+    min-width: 100px;
+    white-space: nowrap;
+  }
+  #teamsTable {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: white;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  #teamsTable thead,
+  #teamsTable tbody {
+    display: table;
+    width: 100%;
+  }
+  #teamsTable th, #teamsTable td {
+    min-width: 100px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    min-width: 0;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  .hero {
+    height: auto;
+    padding: 12px 0 8px 0;
+    min-height: 90px;
+  }
+  .hero h1 {
+    font-size: 1.2rem;
+    text-align: center;
+    word-break: break-word;
+    padding: 0 4px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    padding: 0 4px;
+  }
+  main.container {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0 2px;
+    box-sizing: border-box;
+  }
+  /* Stack sections vertically with spacing and fix alignment */
+  main.container.layout-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 0 2px;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .matches, .players, .teams {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    position: static !important;
+  }
+  .matches {
+    margin-bottom: 0;
+  }
+  .players {
+    margin-bottom: 0;
+  }
+  .teams {
+    margin-bottom: 0;
+    order: 3; /* Ensure teams is always last */
+  }
+  .players-table-header,
+  .teams-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+  .players-table-header h2,
+  .teams-header h2 {
+    font-size: 1rem;
+    padding-left: 4px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+  .players-search-bar,
+  .teams-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+  section h2, aside h2 {
+    font-size: 1rem;
+    padding-left: 4px;
+    margin-bottom: 10px;
+  }
+  .teams ul {
+    margin-top: 8px;
+    padding-left: 0;
+  }
+  .teams li {
+    font-size: 0.97rem;
+    padding: 7px 0;
+    word-break: break-word;
+  }
+  table {
+    font-size: 0.9rem;
+  }
+  footer {
+    padding: 12px 2px;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    width: 100vw;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+  }
+  #addTeamBtn, #deleteTeamBtn,
+  .players-search-bar button {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .players-search-bar input[type="text"] {
+    width: 100%;
+    min-width: 0;
+  }
+  .teams-table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 8px;
+  }
+  .teams-table-header h2 {
+    font-size: 1rem;
+    padding-left: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  .teams-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 0;
+  }
+  #addTeamBtn,
+  #deleteTeamBtn {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+}
+
+.teams-table-wrapper {
+  max-height: 240px; /* adjust height as needed */
+  overflow-y: auto;
+  /* Optional: add a subtle border or shadow for clarity */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Optional: to keep the table header fixed in scroll, you can try this (experimental and depends on browser) */
+#teamsTable thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+.players-table-wrapper {
+  max-height: 280px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Sticky header to keep thead visible */
+#playersTable thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+.matches-table-wrapper {
+  max-height: 300px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Sticky header for matches table */
+.matches-table-wrapper thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+
+
+/* Fix header and footer alignment for all screens */
+header.hero, footer {
+  width: 100vw;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Desktop-only: Align Teams header buttons perfectly in a row */
+@media (min-width: 900px) {
+  .teams-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+  .teams-header h2 {
+    margin-bottom: 0;
+    margin-right: 18px;
+    flex-shrink: 0;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .teams-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  #addTeamBtn, #deleteTeamBtn {
+    width: auto;
+    min-width: 100px;
+    margin-left: 0;
+    margin-right: 0;
+    flex: 0 0 auto;
+  }
+}

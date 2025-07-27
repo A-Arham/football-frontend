@@ -1,0 +1,28 @@
+<p>teams works!</p>
+<aside class="teams">
+  <div class="teams-table-header">
+    <h2>🏆 Teams</h2>
+    <div class="teams-buttons">
+      <button type="button" id="addTeamBtn" (click)="addTeam()">Add Team</button>
+      <button type="button" id="deleteTeamBtn" (click)="deleteTeam()">Delete Team</button>
+
+    </div>
+  </div>
+
+  <div class="teams-table-wrapper">
+    <table id="teamsTable">
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{ team.name }}</td>
+          <td>{{ team.city }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</aside>
