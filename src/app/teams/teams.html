@@ -24,7 +24,7 @@
 <div class="delete-team-form" *ngIf="showDeleteForm">
   <select [(ngModel)]="selectedDeleteTeamId">
     <option [ngValue]="null" disabled selected>Select team to delete</option>
-    <option *ngFor="let team of teams" [ngValue]="team.teamId">
+    <option *ngFor="let team of sortedTeams" [ngValue]="team.teamId">
       {{ team.name }} ({{ team.city }})
     </option>
   </select>
@@ -35,7 +35,7 @@
 <div class="edit-team-form" *ngIf="showEditForm">
   <select [(ngModel)]="selectedEditTeamId" (change)="onTeamSelectedForEdit()">
     <option [ngValue]="null" disabled selected>Select team to edit</option>
-    <option *ngFor="let team of teams" [ngValue]="team.teamId">
+    <option *ngFor="let team of sortedTeams" [ngValue]="team.teamId">
       {{ team.name }} ({{ team.city }})
     </option>
   </select>
@@ -48,8 +48,18 @@
 <table id="teamsTable">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>City</th>
+      <th (click)="sortBy('name')" style="cursor: pointer;">
+        Name
+        <span *ngIf="sortField === 'name'">
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+      <th (click)="sortBy('city')" style="cursor: pointer;">
+        City
+        <span *ngIf="sortField === 'city'">
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -74,4 +84,3 @@
 
   <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>
-

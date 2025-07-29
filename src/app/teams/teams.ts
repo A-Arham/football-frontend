@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeamsService, Team } from '../services/teams';  // adjust path if needed
+import { TeamsService, Team } from '../services/teams';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -14,20 +14,28 @@ import { FormsModule } from '@angular/forms';
 export class TeamsComponent implements OnInit {
   teams: Team[] = [];
 
-  // Add form
+  // Add
   showAddForm = false;
   newTeamName = '';
   newTeamCity = '';
 
-  // Delete form
+  // Delete
   showDeleteForm = false;
   selectedDeleteTeamId: number | null = null;
 
-  // Edit form
+  // Edit
   showEditForm = false;
   selectedEditTeamId: number | null = null;
   editTeamName = '';
   editTeamCity = '';
+
+  // Pagination
+  currentPage = 1;
+  pageSize = 10;
+
+  // Sorting
+  sortField: 'name' | 'city' = 'name';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(private teamsService: TeamsService) {}
 
@@ -42,7 +50,7 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  // ---------------- ADD ----------------
+  // ADD
   toggleAddForm(): void {
     this.showAddForm = !this.showAddForm;
     if (this.showAddForm) {
@@ -73,7 +81,7 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  // ---------------- DELETE ----------------
+  // DELETE
   toggleDeleteForm(): void {
     this.showDeleteForm = !this.showDeleteForm;
     if (this.showDeleteForm) {
@@ -102,7 +110,7 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  // ---------------- EDIT ----------------
+  // EDIT
   toggleEditForm(): void {
     this.showEditForm = !this.showEditForm;
     if (this.showEditForm) {
@@ -150,35 +158,45 @@ export class TeamsComponent implements OnInit {
       }
     });
   }
-  currentPage = 1;
-pageSize = 10; 
-get totalPages(): number {
-  return Math.ceil(this.teams.length / this.pageSize);
-}
 
-
-get paginatedTeams(): Team[] {
-  const start = (this.currentPage - 1) * this.pageSize;
-  return this.teams.slice(start, start + this.pageSize);
-}
-
-goToPage(page: number): void {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
+  // PAGINATION
+  get totalPages(): number {
+    return Math.ceil(this.sortedTeams.length / this.pageSize);
   }
-}
 
-nextPage(): void {
-  if (this.currentPage < this.totalPages) {
-    this.currentPage++;
+  get paginatedTeams(): Team[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.sortedTeams.slice(start, start + this.pageSize);
   }
-}
 
-previousPage(): void {
-  if (this.currentPage > 1) {
-    this.currentPage--;
+  previousPage(): void {
+    if (this.currentPage > 1) this.currentPage--;
   }
-}
 
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
 
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) this.currentPage = page;
+  }
+
+  // SORTING
+  sortBy(field: 'name' | 'city'): void {
+    if (this.sortField === field) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
+  }
+
+  get sortedTeams(): Team[] {
+    return [...this.teams].sort((a, b) => {
+      const fieldA = a[this.sortField].toLowerCase();
+      const fieldB = b[this.sortField].toLowerCase();
+      const result = fieldA.localeCompare(fieldB);
+      return this.sortDirection === 'asc' ? result : -result;
+    });
+  }
 }
