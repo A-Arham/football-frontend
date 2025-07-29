@@ -150,4 +150,33 @@ export class TeamsComponent implements OnInit {
       }
     });
   }
+  currentPage = 1;
+pageSize = 10; // You can change this to whatever number you like
+get totalPages(): number {
+  return Math.ceil(this.teams.length / this.pageSize);
+}
+
+// Paginated teams to show on the table
+get paginatedTeams(): Team[] {
+  const start = (this.currentPage - 1) * this.pageSize;
+  return this.teams.slice(start, start + this.pageSize);
+}
+
+goToPage(page: number): void {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
+
+nextPage(): void {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+  }
+}
+
+previousPage(): void {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
 }

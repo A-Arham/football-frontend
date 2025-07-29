@@ -53,9 +53,25 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let team of teams">
+    <tr *ngFor="let team of paginatedTeams">
       <td>{{ team.name }}</td>
       <td>{{ team.city }}</td>
     </tr>
   </tbody>
 </table>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+
+  <span *ngFor="let page of [].constructor(totalPages); let i = index">
+    <button
+      (click)="goToPage(i + 1)"
+      [class.active]="currentPage === i + 1">
+      {{ i + 1 }}
+    </button>
+  </span>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+
