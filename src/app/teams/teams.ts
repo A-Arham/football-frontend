@@ -151,12 +151,12 @@ export class TeamsComponent implements OnInit {
     });
   }
   currentPage = 1;
-pageSize = 10; // You can change this to whatever number you like
+pageSize = 10; 
 get totalPages(): number {
   return Math.ceil(this.teams.length / this.pageSize);
 }
 
-// Paginated teams to show on the table
+
 get paginatedTeams(): Team[] {
   const start = (this.currentPage - 1) * this.pageSize;
   return this.teams.slice(start, start + this.pageSize);
@@ -179,4 +179,6 @@ previousPage(): void {
     this.currentPage--;
   }
 }
+
+
 }
